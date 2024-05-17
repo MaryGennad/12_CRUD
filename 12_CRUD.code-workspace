@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "12_CRUD",
+			"path": "."
+		},
+		{
+			"name": "public",
+			"path": "../vercel/11/public"
+		}
+	],
+	"settings": {}
+}
