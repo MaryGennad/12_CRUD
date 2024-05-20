@@ -24,7 +24,7 @@ app.get('/api/weather', async (req, res) => {
     const newWeather = new Weather()
     newWeather.temperature = temperature,
     newWeather.city = dataJson.name,
-    newWeather.date = dataJson.date
+    newWeather.date = new Date()
     await newWeather.save() //запись
     
     res.send(dataJson)

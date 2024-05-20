@@ -114,9 +114,9 @@ function getHistorys(){
         let historysString = ''
         for (const history of data) {
             historysString += `
-            <div>Температура: &nbsp ${history.temperature}</div>
+            <div>Дата: &nbsp${history.date}</div>
             <div>Город: &nbsp${history.city}</div>
-            <div>Дата: &nbsp${history.date}</div>`
+            <div>Температура: &nbsp ${history.temperature} &#176 C</div><br>`
         }
         historysElement.innerHTML = historysString
 })
