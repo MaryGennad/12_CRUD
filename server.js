@@ -24,11 +24,14 @@ app.get('/api/weather', async (req, res) => {
     const newWeather = new Weather()
     newWeather.temperature = temperature,
     newWeather.city = dataJson.name
-    await newWeather.save()
+    await newWeather.save() //запись
     
     res.send(dataJson)
  })
-
+app.get('/api/log', async (req, res) => {
+    let log = await Weather.find() 
+    res.send(log) //чтение
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)
