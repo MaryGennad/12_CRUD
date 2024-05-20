@@ -126,7 +126,15 @@ input::placeholder {
 .weather__card p {
     font-size: 14px;
 }
-
+#loadButton{
+    background: #1e1e1e;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    color: #fff;
+    margin-top: 15px;
+    margin-left: 80%;
+}
 @media(max-width: 936px){
     .container {
         width: 90%;

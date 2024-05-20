@@ -14,6 +14,22 @@ let weather__humidity = document.querySelector('.weather__humidity');
 let weather__wind = document.querySelector('.weather__wind');
 let weather__pressure = document.querySelector('.weather__pressure');
 
+// history
+let loadButtonElement = document.getElementById('loadButton') 
+loadButtonElement.onclick = function () {
+    console.log('historyLoad');
+    let historysElement = document.getElementById('temperature')
+    let historysString = ''
+    for (const history of historys) {
+        historysString += `
+        <div>${history.temperature}</div>
+        <div>${history.city}</div>
+        <div>${history.date}</div>`
+    }
+    historysElement.innerHTML = historysString
+    getHistorys()
+}
+
 // search
 document.querySelector(".weather__search").addEventListener('submit', e => {
     let search = document.querySelector(".weather__searchform");
@@ -62,9 +78,8 @@ function convertTimeStamp(timestamp, timezone){
         hour12: true,
     }
     return date.toLocaleString("en-US", options)
-   
+  
 }
-
 
 // convert country code to name
 function convertCountryCode(country){
@@ -73,22 +88,6 @@ function convertCountryCode(country){
 }
 
 function getWeather(){
-//     const API_KEY = 'a2906b093bfe0cb70f7c5e3e7b3baeb7'
-
-// fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${API_KEY}&units=${units}`).then(res => res.json()).then(data => {
-//     console.log(data)
-//     city.innerHTML = `${data.name}, ${convertCountryCode(data.sys.country)}`
-//     datetime.innerHTML = convertTimeStamp(data.dt, data.timezone); 
-//     weather__forecast.innerHTML = `<p>${data.weather[0].main}`
-//     weather__temperature.innerHTML = `${data.main.temp.toFixed()}&#176`
-//     weather__icon.innerHTML = `   <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png" />`
-//     weather__minmax.innerHTML = `<p>Min: ${data.main.temp_min.toFixed()}&#176</p><p>Max: ${data.main.temp_max.toFixed()}&#176</p>`
-//     weather__realfeel.innerHTML = `${data.main.feels_like.toFixed()}&#176`
-//     weather__humidity.innerHTML = `${data.main.humidity}%`
-//     weather__wind.innerHTML = `${data.wind.speed} ${units === "imperial" ? "mph": "m/s"}` 
-//     weather__pressure.innerHTML = `${data.main.pressure} hPa`
-// })
-
 
 fetch(`http://localhost:3000/api/weather/?currCity=${currCity}&units=${units}`).then(res => res.json()).then(data => {
     console.log(data)
@@ -105,4 +104,21 @@ fetch(`http://localhost:3000/api/weather/?currCity=${currCity}&units=${units}`).
 })
 }
 
-document.body.addEventListener('load', getWeather())
+document.body.addEventListener('historyLoad', getWeather())
+
+function getHistorys(){
+    fetch(`http://localhost:3000/api/log`).then(res => res.json()).then(data => {
+        console.log(data)
+        
+        let historysElement = document.getElementById('temperature')
+        let historysString = ''
+        for (const history of data) {
+            historysString += `
+            <div>Температура: &nbsp ${history.temperature}</div>
+            <div>Город: &nbsp${history.city}</div>
+            <div>Дата: &nbsp${history.date}</div>`
+        }
+        historysElement.innerHTML = historysString
+})
+}
+document.body.addEventListener('historyLoad', getHistorys())
